@@ -1,21 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import axios from 'axios';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+          <button onClick={this.fetchPosts} />
       </div>
     );
   }
+
+  fetchPosts = function () {
+      axios.defaults.headers.post['Content-Type'] = 'application/json';
+      axios.defaults.data['username'] = 'testuser';
+      axios.get('http://127.0.0.1:8000/users/')
+          .then(function(response){
+              console.log(response.data);
+              console.log(response.status);
+          });
+  }
 }
+
+
 
 export default App;
